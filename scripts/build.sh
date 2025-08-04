@@ -46,7 +46,6 @@ for file in markdown/*.md; do
         pandoc "$file" \
             --template=temp/final-template.html \
             --standalone \
-            --metadata-file="$file" \
             --to=html5 \
             -o "output/$filename.html"
     fi
