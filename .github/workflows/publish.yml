@@ -35,10 +35,19 @@ jobs:
           sudo apt-get install -y pandoc
 
       - name: Create output directory
-        run: mkdir -p output
+        run: mkdir -p output temp
 
-      - name: Copy CSS files to output
-        run: cp -r css output/
+      - name: Combine CSS files
+        run: |
+          chmod +x scripts/combine-css.sh
+          ./scripts/combine-css.sh
+
+      - name: Create template with embedded CSS
+        run: |
+          python3 scripts/embed-css.py \
+            templates/page-template-inline.html \
+            temp/combined.css \
+            temp/final-template.html
 
       - name: Convert Markdown to HTML
         run: |
@@ -47,13 +56,16 @@ jobs:
               filename=$(basename "$file" .md)
               echo "Converting $file to output/$filename.html"
               pandoc "$file" \
-                --template=templates/page-template.html \
+                --template=temp/final-template.html \
                 --standalone \
                 --metadata-file="$file" \
                 --to=html5 \
                 -o "output/$filename.html"
             fi
           done
+
+      - name: Clean up temporary files
+        run: rm -rf temp
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4

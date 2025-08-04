@@ -23,6 +23,18 @@ mkdir -p output
 echo "📄 Copying CSS files..."
 cp -r css output/
 
+# Combine CSS files
+echo "🎨 Combining CSS files..."
+mkdir -p temp
+./scripts/combine-css.sh
+
+# Create template with embedded CSS
+echo "📄 Creating template with embedded CSS..."
+python3 scripts/embed-css.py \
+    templates/page-template-inline.html \
+    temp/combined.css \
+    temp/final-template.html
+
 # Convert Markdown to HTML
 echo "🔄 Converting Markdown files to HTML..."
 
@@ -32,13 +44,17 @@ for file in markdown/*.md; do
         echo "   Converting: $file -> output/$filename.html"
         
         pandoc "$file" \
-            --template=templates/page-template.html \
+            --template=temp/final-template.html \
             --standalone \
             --metadata-file="$file" \
             --to=html5 \
             -o "output/$filename.html"
     fi
 done
+
+# Clean up temporary files
+echo "🧹 Cleaning up temporary files..."
+rm -rf temp
 
 echo "✅ Build completed successfully!"
 echo "📂 Generated files are in the 'output' directory"

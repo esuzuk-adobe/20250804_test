@@ -6,7 +6,10 @@
     "build": "./scripts/build.sh",
     "serve": "./scripts/serve.sh",
     "dev": "npm run build && npm run serve",
-    "clean": "rm -rf output"
+    "clean": "rm -rf output temp",
+    "css:combine": "./scripts/combine-css.sh",
+    "css:embed": "python3 scripts/embed-css.py templates/page-template-inline.html temp/combined.css temp/final-template.html",
+    "test:build": "echo '🧪 Testing build process...' && npm run clean && npm run build"
   },
   "keywords": [
     "markdown",
