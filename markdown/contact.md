@@ -5,6 +5,10 @@ date: 2025-08-04
 
 # Contact - お問い合わせ
 
+[🏠 ホーム](index.html) | [ℹ️ About Us](about.html) | [🎨 CSS Demo](design-system-demo.html)
+
+---
+
 このページでは様々なコンタクト方法をご紹介しています。お気軽にお声がけください。
 
 ## 📞 連絡先情報

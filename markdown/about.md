@@ -5,6 +5,10 @@ date: 2025-08-04
 
 # About Us - デザインシステムについて
 
+[🏠 ホーム](index.html) | [📞 Contact](contact.html) | [🎨 CSS Demo](design-system-demo.html)
+
+---
+
 これは **Adobe Spectrum CSS** デザインシステムを活用したWebサイトです。モダンで**一貫性のある**ユーザーインターフェースを提供します。
 
 ## 🎨 デザインコンセプト
