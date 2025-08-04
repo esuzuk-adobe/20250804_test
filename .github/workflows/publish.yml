@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Publish to GitHub Pages
 
 on:
   push:
@@ -6,21 +6,23 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Pandoc
-        run: sudo apt-get install -y pandoc
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
       - name: Convert Markdown to HTML
         run: |
           mkdir -p output
           for file in markdown/*.md; do
             filename=$(basename "$file" .md)
-            pandoc "$file" -o "output/$filename.html" --css css/style.css
+            pandoc "$file" -o "output/$filename.html"
           done
 
       - name: Deploy to GitHub Pages
@@ -28,5 +30,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
-          keep_files: true
           force_orphan: true
