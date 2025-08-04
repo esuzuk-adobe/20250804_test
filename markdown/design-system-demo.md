@@ -3,13 +3,7 @@ title: Design System Demo - CSS検証用デモページ
 date: 2025-08-04
 ---
 
-# Design System Demo - CSS検証用デモページ
-
-[🏠 ホーム](index.html) | [ℹ️ About Us](about.html) | [📞 Contact](contact.html)
-
----
-
-このページは **Adobe Spectrum CSS** の様々な要素を検証するためのデモページです。レイアウト、タイポグラフィ、コンポーネントなどの表示確認にご利用ください。
+このページは [**Adobe Spectrum CSS**](https://experienceleague.adobe.com/en/browse/experience-manager) の様々な要素を検証するためのデモページです。レイアウト、タイポグラフィ、コンポーネントなどの表示確認にご利用ください。
 
 ## 📚 Typography - タイポグラフィ
 
