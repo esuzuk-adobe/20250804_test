@@ -4,30 +4,66 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
+
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Create output directory
+        run: mkdir -p output
+
+      - name: Copy CSS files to output
+        run: cp -r css output/
 
       - name: Convert Markdown to HTML
         run: |
-          mkdir -p output
           for file in markdown/*.md; do
-            filename=$(basename "$file" .md)
-            pandoc "$file" -o "output/$filename.html"
+            if [ -f "$file" ]; then
+              filename=$(basename "$file" .md)
+              echo "Converting $file to output/$filename.html"
+              pandoc "$file" \
+                --template=templates/page-template.html \
+                --standalone \
+                --metadata-file="$file" \
+                --to=html5 \
+                -o "output/$filename.html"
+            fi
           done
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
-          force_orphan: true
+          path: ./output
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

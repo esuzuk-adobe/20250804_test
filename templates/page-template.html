@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$if(title)$$title$$else$ドキュメント$endif$</title>
+    
+    <!-- CSS Tokens and Base Styles -->
+    <link rel="stylesheet" href="../css/tokens/custom/global-vars.css">
+    <link rel="stylesheet" href="../css/tokens/custom/light-vars.css">
+    
+    <!-- Typography -->
+    <link rel="stylesheet" href="../css/typography/index.css">
+    
+    <!-- Page Layout -->
+    <link rel="stylesheet" href="../css/page/index.css">
+    
+    <!-- Button Components -->
+    <link rel="stylesheet" href="../css/button/index.css">
+    
+    <!-- Icon Components -->
+    <link rel="stylesheet" href="../css/icon/index.css">
+    
+    <!-- Custom Page Styles -->
+    <style>
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            font-family: var(--spectrum-font-family-base);
+            line-height: var(--spectrum-line-height-100);
+            color: var(--spectrum-neutral-content-color-default);
+        }
+        
+        h1 {
+            font-size: var(--spectrum-font-size-900);
+            font-weight: var(--spectrum-font-weight-bold);
+            color: var(--spectrum-heading-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: var(--spectrum-font-size-700);
+            font-weight: var(--spectrum-font-weight-bold);
+            color: var(--spectrum-heading-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            font-size: var(--spectrum-font-size-500);
+            font-weight: var(--spectrum-font-weight-bold);
+            color: var(--spectrum-heading-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .page-header {
+            border-bottom: 1px solid var(--spectrum-border-color-default);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .meta-info {
+            font-size: var(--spectrum-font-size-75);
+            color: var(--spectrum-neutral-subdued-content-color-default);
+            margin-top: 0.5rem;
+        }
+    </style>
+    
+    $if(date)$
+    <meta name="date" content="$date$">
+    $endif$
+</head>
+<body class="spectrum">
+    <div class="main-content">
+        $if(title)$
+        <header class="page-header">
+            <h1>$title$</h1>
+            $if(date)$
+            <div class="meta-info">公開日: $date$</div>
+            $endif$
+        </header>
+        $endif$
+        
+        <main>
+            $body$
+        </main>
+    </div>
+</body>
+</html>

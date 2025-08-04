@@ -1,0 +1,24 @@
+{
+  "name": "markdown-to-html-publisher",
+  "version": "1.0.0",
+  "description": "Markdown to HTML publisher with CSS styling and GitHub Pages deployment",
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "serve": "./scripts/serve.sh",
+    "dev": "npm run build && npm run serve",
+    "clean": "rm -rf output"
+  },
+  "keywords": [
+    "markdown",
+    "html",
+    "github-pages",
+    "static-site-generator",
+    "css"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {}
+}
